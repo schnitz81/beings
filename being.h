@@ -12,9 +12,6 @@ typedef struct sight {
 	 Object rightfar;
 } Sight;
 
-//typedef enum myColor { RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE } Color;
-
-
 typedef struct being{
 	int posx;
 	int posy;
@@ -24,6 +21,7 @@ typedef struct being{
 	bool resting;
 	int myColor;
 } Being;
+
 
 /* Function prototypes */
 
