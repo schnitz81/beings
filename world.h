@@ -3,12 +3,6 @@
 
 #include <stdbool.h>
 #include "being.h"
-/*
-union obstacle{
-	int x;
-	int y;
-};
-*/
 
 extern int maxx;
 extern int maxy;
@@ -27,20 +21,3 @@ bool checkIfCoordinatesAreClear(int x, int y);
 
 #endif
 
-
-
-
-
-
-
-/* EXAMPLE
- typedef enum downOrUp { DOWN, UP } downOrUp;
-
-typedef struct {
-	int x;
-	int y;
-	downOrUp direction;
-	int dirDuration;
-} Position;
-
-*/
