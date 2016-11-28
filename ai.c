@@ -1,9 +1,7 @@
 #include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <unistd.h>
-#include <sys/ioctl.h>
 #include "world.h"
 #include "event.h"
 #include "being.h"
