@@ -7,10 +7,9 @@
 #include "ai.h"
 #include "event.h"
 
-//Being beings[nbrOfBeings];  // Create data type to store all beings.
-
 void setBeingDefaults(Being *beingToGiveLife,int *x,int *y)
 {
+	// Initialize values of new being.
 	beingToGiveLife->posx = *x;
 	beingToGiveLife->posy = *y;
 	beingToGiveLife->myHeading = getRndNum(8)-1;
