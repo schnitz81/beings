@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include <sys/ioctl.h>
+//#include <sys/ioctl.h>
 #include "world.h"
 #include "event.h"
 
@@ -172,8 +172,8 @@ void runWorld()
 	mvprintw(maxy-1,(maxx/2)-19," Press Enter to start simulation. ");
 	getch();
 	drawOuterWall();
-    nodelay(stdscr, TRUE);  // Don't stop by getch().
-    noecho();  // Don't type user input keys to screen during simulation.
+	nodelay(stdscr, TRUE);  // Don't stop by getch().
+	noecho();  // Don't type user input keys to screen during simulation.
 	char ch;
 	while(ch != 27){
 		ch=getch();
@@ -199,7 +199,6 @@ void runWorld()
 			newBeingToSpawnNbr = nbrOfBeings - 1;
 			spawnBeing(&beings[newBeingToSpawnNbr], &newBeingToSpawnNbr);
 		}
-		
 		usleep(1000000/simulationSpeed);
 	}
 	free(beings);
