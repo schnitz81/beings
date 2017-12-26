@@ -9,15 +9,21 @@
 void look_ahead(Being *beingToTurn)
 {
 	// Handle revolution crossover.
-	if(beingToTurn->myHeading==8)
-		beingToTurn->myHeading=0;
-	else if(beingToTurn->myHeading==9)
-		beingToTurn->myHeading=1;
-	else if(beingToTurn->myHeading==-1)
-		beingToTurn->myHeading=7;
-	else if(beingToTurn->myHeading==-2)
-		beingToTurn->myHeading=6;
-	
+	switch(beingToTurn->myHeading){
+		case 8:
+			beingToTurn->myHeading=0;
+			break;
+		case 9:
+			beingToTurn->myHeading=1;
+			break;
+		case -1:
+			beingToTurn->myHeading=7;
+			break;
+		case -2:
+			beingToTurn->myHeading=6;
+			break;
+	}
+
 	Object surrounding[5][5];
 	char square;
 	int i,j;
@@ -33,79 +39,81 @@ void look_ahead(Being *beingToTurn)
 		}
 	}
 
-/* Being field of view:
-#####
-#####
-##X##
-#####
-##### 
-*/
-	// Being peeks at surrounding ahead depending on heading.
-	if(beingToTurn->myHeading == UP){
-		beingToTurn->obstacles.leftfar = surrounding[1][0];
-		beingToTurn->obstacles.leftnear = surrounding[1][1];
-		beingToTurn->obstacles.middlefar = surrounding[2][0];
-		beingToTurn->obstacles.middlenear = surrounding[2][1];
-		beingToTurn->obstacles.rightfar = surrounding[3][0];
-		beingToTurn->obstacles.rightnear = surrounding[3][1];
-	}
-	else if(beingToTurn->myHeading == UPRIGHT ){
-		beingToTurn->obstacles.leftfar = surrounding[3][0];
-		beingToTurn->obstacles.leftnear = surrounding[2][1];
-		beingToTurn->obstacles.middlefar = surrounding[4][0];
-		beingToTurn->obstacles.middlenear = surrounding[3][1];
-		beingToTurn->obstacles.rightfar = surrounding[4][1];
-		beingToTurn->obstacles.rightnear = surrounding[3][2];
-	}
-	else if(beingToTurn->myHeading == RIGHT){
-		beingToTurn->obstacles.leftfar = surrounding[4][1];
-		beingToTurn->obstacles.leftnear = surrounding[3][1];
-		beingToTurn->obstacles.middlefar = surrounding[4][2];
-		beingToTurn->obstacles.middlenear = surrounding[3][2];
-		beingToTurn->obstacles.rightfar = surrounding[4][3];
-		beingToTurn->obstacles.rightnear = surrounding[3][3];
-	}
-	else if(beingToTurn->myHeading == DOWNRIGHT){
-		beingToTurn->obstacles.leftfar = surrounding[4][3];
-		beingToTurn->obstacles.leftnear = surrounding[3][2];
-		beingToTurn->obstacles.middlefar = surrounding[4][4];
-		beingToTurn->obstacles.middlenear = surrounding[3][3];
-		beingToTurn->obstacles.rightfar = surrounding[3][4];
-		beingToTurn->obstacles.rightnear = surrounding[2][3];
-	}
-	else if(beingToTurn->myHeading == DOWN){
-		beingToTurn->obstacles.leftfar = surrounding[3][4];
-		beingToTurn->obstacles.leftnear = surrounding[3][3];
-		beingToTurn->obstacles.middlefar = surrounding[2][4];
-		beingToTurn->obstacles.middlenear = surrounding[2][3];
-		beingToTurn->obstacles.rightfar = surrounding[1][4];
-		beingToTurn->obstacles.rightnear = surrounding[1][3];
-	}
-	else if(beingToTurn->myHeading == DOWNLEFT){
-		beingToTurn->obstacles.leftfar = surrounding[1][4];
-		beingToTurn->obstacles.leftnear = surrounding[2][3];
-		beingToTurn->obstacles.middlefar = surrounding[0][4];
-		beingToTurn->obstacles.middlenear = surrounding[1][3];
-		beingToTurn->obstacles.rightfar = surrounding[0][3];
-		beingToTurn->obstacles.rightnear = surrounding[1][2];
-	}
-	else if(beingToTurn->myHeading == LEFT){
-		beingToTurn->obstacles.leftfar = surrounding[0][3];
-		beingToTurn->obstacles.leftnear = surrounding[1][3];
-		beingToTurn->obstacles.middlefar = surrounding[0][2];
-		beingToTurn->obstacles.middlenear = surrounding[1][2];
-		beingToTurn->obstacles.rightfar = surrounding[0][1];
-		beingToTurn->obstacles.rightnear = surrounding[1][1];
-	}
-	else if(beingToTurn->myHeading == UPLEFT){
-		beingToTurn->obstacles.leftfar = surrounding[0][1];
-		beingToTurn->obstacles.leftnear = surrounding[1][2];
-		beingToTurn->obstacles.middlefar = surrounding[0][0];
-		beingToTurn->obstacles.middlenear = surrounding[1][1];
-		beingToTurn->obstacles.rightfar = surrounding[1][0];
-		beingToTurn->obstacles.rightnear = surrounding[2][1];
-	}	
+	/* Being field of view:
+	#####
+	#####	
+	##X##
+	#####
+	##### 
+	*/
 
+	// Being peeks at surrounding ahead depending on heading.
+	switch(beingToTurn->myHeading){
+		case UP:
+			beingToTurn->obstacles.leftfar = surrounding[1][0];
+			beingToTurn->obstacles.leftnear = surrounding[1][1];
+			beingToTurn->obstacles.middlefar = surrounding[2][0];
+			beingToTurn->obstacles.middlenear = surrounding[2][1];
+			beingToTurn->obstacles.rightfar = surrounding[3][0];
+			beingToTurn->obstacles.rightnear = surrounding[3][1];
+			break;
+		case UPRIGHT:
+			beingToTurn->obstacles.leftfar = surrounding[3][0];
+			beingToTurn->obstacles.leftnear = surrounding[2][1];
+			beingToTurn->obstacles.middlefar = surrounding[4][0];
+			beingToTurn->obstacles.middlenear = surrounding[3][1];
+			beingToTurn->obstacles.rightfar = surrounding[4][1];
+			beingToTurn->obstacles.rightnear = surrounding[3][2];
+			break;
+		case RIGHT:
+			beingToTurn->obstacles.leftfar = surrounding[4][1];
+			beingToTurn->obstacles.leftnear = surrounding[3][1];
+			beingToTurn->obstacles.middlefar = surrounding[4][2];
+			beingToTurn->obstacles.middlenear = surrounding[3][2];
+			beingToTurn->obstacles.rightfar = surrounding[4][3];
+			beingToTurn->obstacles.rightnear = surrounding[3][3];
+			break;
+		case DOWNRIGHT:
+			beingToTurn->obstacles.leftfar = surrounding[4][3];
+			beingToTurn->obstacles.leftnear = surrounding[3][2];
+			beingToTurn->obstacles.middlefar = surrounding[4][4];
+			beingToTurn->obstacles.middlenear = surrounding[3][3];
+			beingToTurn->obstacles.rightfar = surrounding[3][4];
+			beingToTurn->obstacles.rightnear = surrounding[2][3];
+			break;
+		case DOWN:
+			beingToTurn->obstacles.leftfar = surrounding[3][4];
+			beingToTurn->obstacles.leftnear = surrounding[3][3];
+			beingToTurn->obstacles.middlefar = surrounding[2][4];
+			beingToTurn->obstacles.middlenear = surrounding[2][3];
+			beingToTurn->obstacles.rightfar = surrounding[1][4];
+			beingToTurn->obstacles.rightnear = surrounding[1][3];
+			break;
+		case DOWNLEFT:
+			beingToTurn->obstacles.leftfar = surrounding[1][4];
+			beingToTurn->obstacles.leftnear = surrounding[2][3];
+			beingToTurn->obstacles.middlefar = surrounding[0][4];
+			beingToTurn->obstacles.middlenear = surrounding[1][3];
+			beingToTurn->obstacles.rightfar = surrounding[0][3];
+			beingToTurn->obstacles.rightnear = surrounding[1][2];
+			break;
+		case LEFT:
+			beingToTurn->obstacles.leftfar = surrounding[0][3];
+			beingToTurn->obstacles.leftnear = surrounding[1][3];
+			beingToTurn->obstacles.middlefar = surrounding[0][2];
+			beingToTurn->obstacles.middlenear = surrounding[1][2];
+			beingToTurn->obstacles.rightfar = surrounding[0][1];
+			beingToTurn->obstacles.rightnear = surrounding[1][1];
+			break;
+		case UPLEFT:
+			beingToTurn->obstacles.leftfar = surrounding[0][1];
+			beingToTurn->obstacles.leftnear = surrounding[1][2];
+			beingToTurn->obstacles.middlefar = surrounding[0][0];
+			beingToTurn->obstacles.middlenear = surrounding[1][1];
+			beingToTurn->obstacles.rightfar = surrounding[1][0];
+			beingToTurn->obstacles.rightnear = surrounding[2][1];
+			break;
+	}	
 }
 
 void decision(Being *beingToTurn)
@@ -158,12 +166,13 @@ void decision(Being *beingToTurn)
 		
 		// If another being is far away.
 		if(beingToTurn->obstacles.leftnear==NONE && beingToTurn->obstacles.middlenear==NONE && beingToTurn->obstacles.rightnear==NONE){
-			// Obstacle far left.
+			// being obstacle far left.
 			if(beingToTurn->obstacles.leftfar==OTHERBEING && beingToTurn->obstacles.middlefar==NONE && beingToTurn->obstacles.rightfar==NONE)
 				beingToTurn->myHeading++;
-			//obstacle far right
+			// being obstacle far right
 			else if(beingToTurn->obstacles.leftfar==NONE && beingToTurn->obstacles.middlefar==NONE && beingToTurn->obstacles.rightfar==OTHERBEING)
 				beingToTurn->myHeading--;
+			// being obstacle far middle
 			else if(beingToTurn->obstacles.leftfar==NONE && beingToTurn->obstacles.middlefar==OTHERBEING && beingToTurn->obstacles.rightfar==NONE){
 				if(getRndNum(2)==1)
 					beingToTurn->myHeading--;
@@ -172,7 +181,7 @@ void decision(Being *beingToTurn)
 			}
 		}
 	
-		// If another being is close.
+		// Stop if another being is close ahead.
 		if(beingToTurn->obstacles.leftnear==OTHERBEING || beingToTurn->obstacles.middlenear==OTHERBEING || beingToTurn->obstacles.rightnear==OTHERBEING)
 			beingToTurn->resting = TRUE;
 		

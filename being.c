@@ -50,33 +50,35 @@ void spawnBeing(Being *beingToGiveLife, int *beingNbr)
 void movement(Being *beingToTurn)
 {
 	if(!beingToTurn->resting){
-		if(beingToTurn->myHeading == UP){
-			beingToTurn->posy--;		
-		}
-		else if(beingToTurn->myHeading == UPRIGHT){
-			beingToTurn->posy--;		
-			beingToTurn->posx++;
-		}
-		else if(beingToTurn->myHeading == RIGHT){
-			beingToTurn->posx++;
-		}
-		else if(beingToTurn->myHeading == DOWNRIGHT){
-			beingToTurn->posy++;		
-			beingToTurn->posx++;
-		}
-		else if(beingToTurn->myHeading == DOWN){
-			beingToTurn->posy++;				
-		}
-		else if(beingToTurn->myHeading == DOWNLEFT){
-			beingToTurn->posy++;		
-			beingToTurn->posx--;
-		}
-		else if(beingToTurn->myHeading == LEFT){
-			beingToTurn->posx--;
-		}	
-		else if(beingToTurn->myHeading == UPLEFT){
-			beingToTurn->posy--;		
-			beingToTurn->posx--;
+		switch(beingToTurn->myHeading){ 
+			case UP:
+				beingToTurn->posy--;
+				break;		
+			case UPRIGHT:
+				beingToTurn->posy--;		
+				beingToTurn->posx++;
+				break;
+		 	case RIGHT:
+				beingToTurn->posx++;
+				break;
+			case DOWNRIGHT:
+				beingToTurn->posy++;		
+				beingToTurn->posx++;
+				break;
+			case DOWN:
+				beingToTurn->posy++;
+				break;				
+			case DOWNLEFT:
+				beingToTurn->posy++;		
+				beingToTurn->posx--;
+				break;
+			case LEFT:
+				beingToTurn->posx--;
+				break;
+			case UPLEFT:
+				beingToTurn->posy--;		
+				beingToTurn->posx--;
+				break;
 		}
 	}
 }
