@@ -1,7 +1,7 @@
 #ifndef BEING_H
 #define BEING_H
 
-typedef enum heading { UP, UPRIGHT, RIGHT, DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPLEFT } Heading;
+typedef enum heading { UNDERVALUE2 = -2, UNDERVALUE1, UP, UPRIGHT, RIGHT, DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPLEFT, OVERVALUE1, OVERVALUE2 } Heading;
 typedef enum object { NONE, OTHERBEING, FENCE } Object;
 typedef struct sight {
 	 Object leftnear;

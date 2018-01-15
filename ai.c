@@ -10,17 +10,19 @@ void look_ahead(Being *beingToTurn)
 {
 	// Handle revolution crossover.
 	switch(beingToTurn->myHeading){
-		case 8:
-			beingToTurn->myHeading=0;
+		case OVERVALUE1:
+			beingToTurn->myHeading = UP;
 			break;
-		case 9:
-			beingToTurn->myHeading=1;
+		case OVERVALUE2:
+			beingToTurn->myHeading = UPRIGHT;
 			break;
-		case -1:
-			beingToTurn->myHeading=7;
+		case UNDERVALUE1:
+			beingToTurn->myHeading = UPLEFT;
 			break;
-		case -2:
-			beingToTurn->myHeading=6;
+		case UNDERVALUE2:
+			beingToTurn->myHeading = LEFT;
+			break;
+		default:
 			break;
 	}
 
@@ -112,6 +114,8 @@ void look_ahead(Being *beingToTurn)
 			beingToTurn->obstacles.middlenear = surrounding[1][1];
 			beingToTurn->obstacles.rightfar = surrounding[1][0];
 			beingToTurn->obstacles.rightnear = surrounding[2][1];
+			break;
+		default:
 			break;
 	}	
 }
