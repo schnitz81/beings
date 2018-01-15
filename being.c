@@ -79,6 +79,8 @@ void movement(Being *beingToTurn)
 				beingToTurn->posy--;		
 				beingToTurn->posx--;
 				break;
+			default:
+				break;
 		}
 	}
 }
