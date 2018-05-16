@@ -1,4 +1,4 @@
-if ! [ -e beings.x64 ]; then
+if ! [ -e beings ]; then
 	echo "No executable found. Preparing to build..."; sleep .6
 	echo -n "Checking gcc..."; sleep .4
 	if ! [ -e /usr/bin/gcc ]; then
@@ -22,18 +22,18 @@ if ! [ -e beings.x64 ]; then
 	gcc -Wall -c ai.c
 	gcc -Wall -c event.c
 	gcc -Wall -c being.c
-	gcc -o beings.x64 main.o world.o ai.o event.o being.o -lcurses 
+	gcc -o beings main.o world.o ai.o event.o being.o -lcurses 
 
 	if [ $? -eq 0 ]; then
 		echo "Build successful. Starting executable..."; sleep 1
-		./beings.x64
+		./beings
 	else
 		echo "Build failed. Unable to start."
 	fi
 	
 else
 	echo -e "\nExecutable found. Starting..."; sleep 1
-	./beings.x64
+	./beings
 fi
 
 
