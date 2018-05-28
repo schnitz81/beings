@@ -148,8 +148,8 @@ void spawnBeings(Being *beings, int nbrOfBeings)
 int setSimulationSpeed()
 {
 	int simulationSpeed=0,y,x;
-	while(simulationSpeed<1||simulationSpeed>200){
-		mvprintw(maxy-1,(maxx/2)-18," Enter simulation speed (1-200):    ");
+	while(simulationSpeed<1||simulationSpeed>100){
+		mvprintw(maxy-1,(maxx/2)-18," Enter simulation speed (1-100):    ");
 		getyx(stdscr,y,x);  // Get current cursor position.
 		move(y,x-4);  // Move back cursor three steps.
 		scanw("%d",&simulationSpeed);
@@ -182,7 +182,7 @@ void runWorld()
 		refresh();
 		
 		// Change simulation speed or nomber of beings during run.
-		if(ch=='+' && simulationSpeed<200 )
+		if(ch=='+' && simulationSpeed<100 )
 			simulationSpeed++;
 		else if(ch=='-' && simulationSpeed>1)
 			simulationSpeed--;
