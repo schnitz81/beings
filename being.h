@@ -25,10 +25,10 @@ typedef struct being{
 
 /* Function prototypes */
 
-void setBeingDefaults(Being *beingToGiveLife,int *x,int *y);
-void spawnBeing(Being *beingToGiveLife, int *beingNbr);
+void setBeingDefaults(Being *beingToGiveLife, const int *x, const int *y);
+void spawnBeing(Being *beingToGiveLife, const int *beingNbr);
 void movement(Being *beingToTurn);
-void turnBeing(Being *beingToTurn, int *beingNbr);
+void turnBeing(Being *beingToTurn, const int *beingNbr);
 
 #endif
 
