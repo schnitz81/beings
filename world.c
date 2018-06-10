@@ -135,10 +135,10 @@ int getNbrOfBeings()
 }
 
 	
-void spawnBeings(Being *beings, int nbrOfBeings)
+void spawnBeings(Being *beings, const int *nbrOfBeings)
 {	
 	int i;
-	for(i=0;i<nbrOfBeings;i++){  // Spawn all beings.
+	for(i=0;i<*nbrOfBeings;i++){  // Spawn all beings.
 		usleep(30000);  // delay
 		spawnBeing(&beings[i], &i);
 		refresh();
@@ -165,7 +165,7 @@ void runWorld()
 	int i, nbrOfBeings, simulationSpeed, newBeingToSpawnNbr;
 	nbrOfBeings = getNbrOfBeings();
 	Being *beings = malloc(nbrOfBeings*sizeof(Being)); 
-	spawnBeings(&*beings,nbrOfBeings);
+	spawnBeings(&*beings,&nbrOfBeings);
 	drawOuterWall();
 	simulationSpeed = setSimulationSpeed();
 	
@@ -207,11 +207,11 @@ void runWorld()
 }
 
 
-bool checkIfCoordinatesAreClear(int x, int y)
+bool checkIfCoordinatesAreClear(const int *x, const int *y)
 {
 	bool isClear;
 	char checksquare;
-	checksquare = mvinch(y,x) & A_CHARTEXT;
+	checksquare = mvinch(*y,*x) & A_CHARTEXT;
 	if(checksquare == ' ')
 		isClear = TRUE;
 	else

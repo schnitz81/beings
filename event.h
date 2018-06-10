@@ -4,7 +4,7 @@
 
 
 /* Function prototypes */
-int getRndNum(int nmbOfTurnouts);
+int getRndNum(const int nmbOfTurnouts);
 
 
 #endif

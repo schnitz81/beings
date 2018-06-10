@@ -13,10 +13,10 @@ extern int maxy;
 void placeObstacles();
 void buildWorld();
 int getNbrOfBeings();
-void spawnBeings(Being *beings, int nbrOfBeings);
+void spawnBeings(Being *beings, const int *nbrOfBeings);
 int setSimulationSpeed();
 void runWorld();
-bool checkIfCoordinatesAreClear(int x, int y);
+bool checkIfCoordinatesAreClear(const int *x, const int *y);
 
 
 #endif

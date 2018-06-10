@@ -7,7 +7,7 @@
 #include "ai.h"
 #include "event.h"
 
-void setBeingDefaults(Being *beingToGiveLife,int *x,int *y)
+void setBeingDefaults(Being *beingToGiveLife, const int *x, const int *y)
 {
 	// Initialize values of new being.
 	beingToGiveLife->posx = *x;
@@ -26,7 +26,7 @@ void setBeingDefaults(Being *beingToGiveLife,int *x,int *y)
 }
 
 
-void spawnBeing(Being *beingToGiveLife, int *beingNbr)
+void spawnBeing(Being *beingToGiveLife, const int *beingNbr)
 {
 	//choose coordinate without obstacle or other being
 	bool coordinateIsClear = FALSE;
@@ -35,7 +35,7 @@ void spawnBeing(Being *beingToGiveLife, int *beingNbr)
 	while(!coordinateIsClear){
 		testx = getRndNum(maxx-1);
 		testy = getRndNum(maxy-1);
-		coordinateIsClear = checkIfCoordinatesAreClear(testx,testy);
+		coordinateIsClear = checkIfCoordinatesAreClear(&testx, &testy);
 	}
 	setBeingDefaults(beingToGiveLife,&testx,&testy);
 	
@@ -86,7 +86,7 @@ void movement(Being *beingToTurn)
 }
 
 
-void turnBeing(Being *beingToTurn, int *beingNbr)
+void turnBeing(Being *beingToTurn, const int *beingNbr)
 {
 	//Erase old position
 	mvprintw(beingToTurn->posy,beingToTurn->posx, " ");
