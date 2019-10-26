@@ -22,7 +22,19 @@ void setBeingDefaults(Being *beingToGiveLife, const int *x, const int *y)
 	beingToGiveLife->obstacles.rightnear = 0;
 	
 	beingToGiveLife->resting = TRUE;
-	beingToGiveLife->myColor = getRndNum(5)+1;
+		
+	do {  // Set being color to anything but white, black or dark grey.
+		beingToGiveLife->myColor = getRndNum(13)+1;
+	} while(beingToGiveLife->myColor == 7 || beingToGiveLife->myColor == 8);
+}
+
+
+void beingToPrint(const Being *beingToPrint)
+{
+	init_pair(beingToPrint->myColor, beingToPrint->myColor, -1);  // Set color to beingNbr
+	attron(COLOR_PAIR(beingToPrint->myColor));
+	mvprintw(beingToPrint->posy,beingToPrint->posx,"*");
+	attroff(COLOR_PAIR(beingToPrint->myColor));
 }
 
 
@@ -40,10 +52,7 @@ void spawnBeing(Being *beingToGiveLife, const int *beingNbr)
 	setBeingDefaults(beingToGiveLife,&testx,&testy);
 	
 	// Initial placing of being.
-	init_pair(*beingNbr, beingToGiveLife->myColor, -1);  // Set color to beingNbr 	
-	attron(COLOR_PAIR(*beingNbr));
-	mvprintw(beingToGiveLife->posy,beingToGiveLife->posx,"*");
-	attroff(COLOR_PAIR(*beingNbr));
+	beingToPrint(beingToGiveLife);
 }
 
 
@@ -98,8 +107,5 @@ void turnBeing(Being *beingToTurn, const int *beingNbr)
 	movement(beingToTurn);
 	
 	// Print new position.
-	init_pair(*beingNbr, beingToTurn->myColor, -1);  // Set color to beingNbr 	
-	attron(COLOR_PAIR(*beingNbr));
-	mvprintw(beingToTurn->posy,beingToTurn->posx, "*");
-	attroff(COLOR_PAIR(*beingNbr));
+	beingToPrint(beingToTurn);
 }

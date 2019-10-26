@@ -22,7 +22,7 @@ if ! [ -e beings ]; then
 	gcc -Wall -c ai.c
 	gcc -Wall -c event.c
 	gcc -Wall -c being.c
-	gcc -o beings main.o world.o ai.o event.o being.o -lcurses 
+	gcc -o beings main.o world.o ai.o event.o being.o -lcurses -ltinfo 
 
 	if [ $? -eq 0 ]; then
 		echo "Build successful. Starting executable..."; sleep 1
