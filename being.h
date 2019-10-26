@@ -26,6 +26,7 @@ typedef struct being{
 /* Function prototypes */
 
 void setBeingDefaults(Being *beingToGiveLife, const int *x, const int *y);
+void beingToPrint(const Being *beingToPrint);
 void spawnBeing(Being *beingToGiveLife, const int *beingNbr);
 void movement(Being *beingToTurn);
 void turnBeing(Being *beingToTurn, const int *beingNbr);

@@ -226,6 +226,5 @@ void decision(Being *beingToTurn)
 		look_ahead(beingToTurn);
 		firstCheck = FALSE;
 	}  // while coast isn't clear.
-
-} // function
+}
 

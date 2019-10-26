@@ -15,7 +15,7 @@ void drawOuterWall()
 	int i;
 		
 	// upper frame
-	for(i=1;i<maxx-1;i++){ 
+	for(i=1;i<maxx-1;i++){
 		move(0,i);
 		printw("=");
 	}
@@ -27,7 +27,7 @@ void drawOuterWall()
 	}	
 	
 	// left frame
-	for(i=0;i<maxy;i++){ 
+	for(i=0;i<maxy;i++){
 		move(i,0);
 		printw("|");
 	}
@@ -63,7 +63,7 @@ void placeObstacles()
 	for(i=1;i<maxy-1;i++){
 		for(j=1;j<maxx-1;j++){
 			usleep(100);
-			if(bOneMade){  // Always make obstacle longer than one square. 
+			if(bOneMade){  // Always make obstacle longer than one square.
 				mvprintw(i,j,"#");
 				bOneMade = FALSE;
 			}
@@ -89,7 +89,7 @@ void placeObstacles()
 				bOneMade = FALSE;
 			}
 			else if(bLast && getRndNum(4)!=1)
-				mvprintw(j,i,"#");				
+				mvprintw(j,i,"#");
 			else if(getRndNum(1000/obstacleDensity)==1){ // new obstacle
 				mvprintw(j,i,"#");
 				bLast = TRUE;
@@ -105,9 +105,9 @@ void placeObstacles()
 
 void buildWorld()
 {
-	initscr(); 
+	initscr();
 	curs_set(0);
-	start_color();	  
+	start_color();
 	use_default_colors();
 	srand(time(NULL));  // world will be generated randomly.
 	getmaxyx(stdscr,maxy,maxx); // set world outer boundaries (global var)
@@ -134,16 +134,22 @@ int getNbrOfBeings()
 	return nbrOfBeings;
 }
 
-	
+
 void spawnBeings(Being *beings, const int *nbrOfBeings)
 {	
 	int i;
+	//Being *genesisbeing;
 	for(i=0;i<*nbrOfBeings;i++){  // Spawn all beings.
 		usleep(30000);  // delay
 		spawnBeing(&beings[i], &i);
+		if(i==0){  // Set special color on genesis being.
+			beings[0].myColor=15;
+			turnBeing(&beings[i], &i);
+		}
 		refresh();
 	}	
 }
+
 
 int setSimulationSpeed()
 {
