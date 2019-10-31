@@ -31,7 +31,7 @@ void setBeingDefaults(Being *beingToGiveLife, const int *x, const int *y)
 
 void beingToPrint(const Being *beingToPrint)
 {
-	init_pair(beingToPrint->myColor, beingToPrint->myColor, -1);  // Set color to beingNbr
+	init_pair(beingToPrint->myColor, beingToPrint->myColor,-1);  // print color according to being property
 	attron(COLOR_PAIR(beingToPrint->myColor));
 	mvprintw(beingToPrint->posy,beingToPrint->posx,"*");
 	attroff(COLOR_PAIR(beingToPrint->myColor));
