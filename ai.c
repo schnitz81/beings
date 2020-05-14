@@ -185,9 +185,12 @@ void decision(Being *beingToTurn)
 			}
 		}
 	
-		// Stop if another being is close ahead.
-		if(beingToTurn->obstacles.leftnear==OTHERBEING || beingToTurn->obstacles.middlenear==OTHERBEING || beingToTurn->obstacles.rightnear==OTHERBEING)
-			beingToTurn->resting = TRUE;
+		// Likely stop if another being is close ahead.
+		if(beingToTurn->obstacles.leftnear==OTHERBEING || beingToTurn->obstacles.middlenear==OTHERBEING || beingToTurn->obstacles.rightnear==OTHERBEING){
+			if(getRndNum(4)!=4)
+				beingToTurn->resting = TRUE;
+		}
+			
 		
 		// ********************************************************************************************************
 	
@@ -217,7 +220,7 @@ void decision(Being *beingToTurn)
 		look_ahead(beingToTurn);
 		
 		// Increase chance of stopping if facing a fence.
-		if(beingToTurn->obstacles.middlenear==FENCE && getRndNum(6)==4)
+		if(beingToTurn->obstacles.middlenear==FENCE && getRndNum(6)>4)
 			beingToTurn->resting = TRUE;
 			
 		// ************************************************************************************************************
