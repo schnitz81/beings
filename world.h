@@ -12,8 +12,9 @@ extern int maxy;
 
 void placeObstacles();
 void buildWorld();
-int getNbrOfBeings();
-void spawnBeings(Being *beings, const int *nbrOfBeings);
+unsigned int getMaxNbrOfBeings();
+unsigned int getNbrOfBeings();
+unsigned int spawnBeings(Being *beings, const unsigned int *nbrOfBeings);
 int setSimulationSpeed();
 void runWorld();
 bool checkIfCoordinatesAreClear(const int *x, const int *y);
