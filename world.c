@@ -43,26 +43,29 @@ void drawOuterWall()
 	
 void placeObstacles()
 {
-	int i,j,y,x,obstacleDensity=0;
+	int i,j,y,x,obstacleDensity=-1;
 	bool bLast, bOneMade = FALSE;
 	
 	// User chooses obstacle density.
 	
-	while(obstacleDensity<1||obstacleDensity>50){
-		mvprintw(maxy-1,(maxx/2)-18," Enter obstacle density (1-50):    ");
+	while(obstacleDensity<0||obstacleDensity>50){
+		mvprintw(maxy-1,(maxx/2)-18," Enter obstacle density (0-50):    ");
 		getyx(stdscr,y,x);
 		move(y,x-4);
 		scanw("%d",&obstacleDensity);
 	}
 	drawOuterWall(); // Redraw outer wall.
 	
-	
+	// Exit function if obstacle density is 0.
+	if(obstacleDensity==0)
+		return;
+
 	// Generate obstacles
 	
 	// X-wise obstacles
 	for(i=1;i<maxy-1;i++){
 		for(j=1;j<maxx-1;j++){
-			usleep(100);
+			usleep(60);
 			if(bOneMade){  // Always make obstacle longer than one square.
 				mvprintw(i,j,"#");
 				bOneMade = FALSE;
@@ -83,7 +86,7 @@ void placeObstacles()
 	// Y-wise obstacles
 	for(i=1;i<maxx-1;i++){
 		for(j=1;j<maxy-1;j++){
-			usleep(100);
+			usleep(60);
 			if(bOneMade){
 				mvprintw(j,i,"#");
 				bOneMade = FALSE;
@@ -121,33 +124,47 @@ void buildWorld()
 }
 
 
-int getNbrOfBeings()
+unsigned int getNbrOfBeings()
 {
-	int nbrOfBeings=0,y,x;
-	while(nbrOfBeings<1||nbrOfBeings>250){
-		mvprintw(maxy-1,(maxx/2)-18," Enter number of beings (1-250):    ");
+	unsigned int nbrOfBeings=0;
+	int y,x;
+	unsigned long long int inputNbr=0;
+	while(inputNbr<1||inputNbr>9999999999999){
+		mvprintw(maxy-1,(maxx/2)-19," Enter number of beings:            ");
 		getyx(stdscr,y,x);  // Get current cursor position.
-		move(y,x-4);  // Move back cursor three steps.
-		scanw("%d",&nbrOfBeings);
+		move(y,x-12);  // Move back cursor three steps.
+		scanw("%llu",&inputNbr);
 	}
+	if(inputNbr>65535)
+		nbrOfBeings = 65535;
+	else
+		nbrOfBeings = inputNbr;
 	drawOuterWall(); // Redraw outer wall.
 	return nbrOfBeings;
 }
 
 
-void spawnBeings(Being *beings, const int *nbrOfBeings)
+unsigned int spawnBeings(Being *beings, const unsigned int *nbrOfBeings)
 {	
 	int i;
-	//Being *genesisbeing;
+	unsigned int actualNbrOfBeings = 0;
+	bool beingCreated;
 	for(i=0;i<*nbrOfBeings;i++){  // Spawn all beings.
-		usleep(30000);  // delay
-		spawnBeing(&beings[i], &i);
+		usleep(300);  // delay
+		beingCreated = spawnBeing(&beings[i], &i);
+		if(beingCreated == FALSE){
+			beings = realloc(beings,actualNbrOfBeings*sizeof(Being));
+			break;
+		}
+		else
+			actualNbrOfBeings++;
 		if(i==0){  // Set special color on genesis being.
 			beings[0].myColor=15;
 			turnBeing(&beings[i], &i);
 		}
 		refresh();
-	}	
+	}
+	return actualNbrOfBeings;	
 }
 
 
@@ -167,11 +184,12 @@ int setSimulationSpeed()
 
 void runWorld()
 {
-	
-	int i, nbrOfBeings, simulationSpeed, newBeingToSpawnNbr;
+	unsigned int nbrOfBeings;
+	int i, simulationSpeed, newBeingToSpawnNbr;
+	bool beingCreated;
 	nbrOfBeings = getNbrOfBeings();
 	Being *beings = malloc(nbrOfBeings*sizeof(Being)); 
-	spawnBeings(&*beings,&nbrOfBeings);
+	nbrOfBeings = spawnBeings(&*beings,&nbrOfBeings);
 	drawOuterWall();
 	simulationSpeed = setSimulationSpeed();
 	
@@ -187,7 +205,7 @@ void runWorld()
 			turnBeing(&beings[i], &i);
 		refresh();
 		
-		// Change simulation speed or nomber of beings during run.
+		// Change simulation speed or number of beings during run.
 		if(ch=='+' && simulationSpeed<100 )
 			simulationSpeed++;
 		else if(ch=='-' && simulationSpeed>1)
@@ -199,11 +217,15 @@ void runWorld()
 			nbrOfBeings--;
 			beings = realloc(beings,nbrOfBeings*sizeof(Being));
 		}
-		else if(ch=='.' && nbrOfBeings < 250){  // Create new being.
+		else if(ch=='.' && nbrOfBeings < 65535){  // Create new being.
 			nbrOfBeings++;
 			beings = realloc(beings,nbrOfBeings*sizeof(Being));
 			newBeingToSpawnNbr = nbrOfBeings - 1;
-			spawnBeing(&beings[newBeingToSpawnNbr], &newBeingToSpawnNbr);
+			beingCreated = spawnBeing(&beings[newBeingToSpawnNbr], &newBeingToSpawnNbr);
+			if(beingCreated==FALSE){ // If being created is unsuccessful due to out of space.
+				nbrOfBeings--;
+				beings = realloc(beings,nbrOfBeings*sizeof(Being));
+			}
 		}
 		usleep(1000000/simulationSpeed);
 	}

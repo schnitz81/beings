@@ -38,13 +38,15 @@ void beingToPrint(const Being *beingToPrint)
 }
 
 
-void spawnBeing(Being *beingToGiveLife, const int *beingNbr)
+int spawnBeing(Being *beingToGiveLife, const int *beingNbr)
 {
 	//choose coordinate without obstacle or other being
 	bool coordinateIsClear = FALSE;
 	int testx;
 	int testy;
-	while(!coordinateIsClear){
+	unsigned long int positionFreeTest = 0;
+	while(!coordinateIsClear && positionFreeTest < 10000000){
+		positionFreeTest++;
 		testx = getRndNum(maxx-1);
 		testy = getRndNum(maxy-1);
 		coordinateIsClear = checkIfCoordinatesAreClear(&testx, &testy);
@@ -53,6 +55,12 @@ void spawnBeing(Being *beingToGiveLife, const int *beingNbr)
 	
 	// Initial placing of being.
 	beingToPrint(beingToGiveLife);
+	
+	// return false if position is not found
+	if(positionFreeTest >= 10000000)
+		return 0;
+	else
+		return 1;
 }
 
 
