@@ -43,7 +43,7 @@ void drawOuterWall()
 	
 void placeObstacles()
 {
-	int i,j,y,x,obstacleDensity=-1;
+	int i, j, y, x, obstacleDensity = -1;
 	bool bLast, bOneMade = FALSE;
 	
 	// User chooses obstacle density.
@@ -126,9 +126,9 @@ void buildWorld()
 
 unsigned int getNbrOfBeings()
 {
-	unsigned int nbrOfBeings=0;
-	int y,x;
-	unsigned long long int inputNbr=0;
+	unsigned int nbrOfBeings = 0;
+	int y, x;
+	unsigned long long int inputNbr = 0;
 	while(inputNbr<1||inputNbr>9999999999999){
 		mvprintw(maxy-1,(maxx/2)-19," Enter number of beings:            ");
 		getyx(stdscr,y,x);  // Get current cursor position.
@@ -170,7 +170,7 @@ unsigned int spawnBeings(Being *beings, const unsigned int *nbrOfBeings)
 
 int setSimulationSpeed()
 {
-	int simulationSpeed=0,y,x;
+	int simulationSpeed = 0, y, x;
 	while(simulationSpeed<1||simulationSpeed>100){
 		mvprintw(maxy-1,(maxx/2)-18," Enter simulation speed (1-100):    ");
 		getyx(stdscr,y,x);  // Get current cursor position.
@@ -198,7 +198,7 @@ void runWorld()
 	drawOuterWall();
 	nodelay(stdscr, TRUE);  // Don't stop by getch().
 	noecho();  // Don't type user input keys to screen during simulation.
-	char ch;
+	char ch = '';
 	while(ch != 27){
 		ch=getch();
 		for(i=0;i<nbrOfBeings;i++)
