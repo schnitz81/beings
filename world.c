@@ -198,7 +198,7 @@ void runWorld()
 	drawOuterWall();
 	nodelay(stdscr, TRUE);  // Don't stop by getch().
 	noecho();  // Don't type user input keys to screen during simulation.
-	char ch = '';
+	int ch = 0;
 	while(ch != 27){
 		ch=getch();
 		for(i=0;i<nbrOfBeings;i++)
