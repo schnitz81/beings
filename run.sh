@@ -17,11 +17,11 @@ if ! [ -e beings ]; then
     echo "Proceeding to build executable..."; sleep .6
 
 	echo 'Building...'
-	gcc -Wfatal-errors -Wall -c main.c
-	gcc -Wfatal-errors -Wall -c world.c
-	gcc -Wfatal-errors -Wall -c ai.c
-	gcc -Wfatal-errors -Wall -c event.c
-	gcc -Wfatal-errors -Wall -c being.c
+	gcc -Wfatal-errors -Wall -c main.c &&
+	gcc -Wfatal-errors -Wall -c world.c &&
+	gcc -Wfatal-errors -Wall -c ai.c &&
+	gcc -Wfatal-errors -Wall -c event.c &&
+	gcc -Wfatal-errors -Wall -c being.c &&
 	gcc -Wfatal-errors -o beings main.o world.o ai.o event.o being.o -lcurses -ltinfo 
 
 	if [ $? -eq 0 ]; then
