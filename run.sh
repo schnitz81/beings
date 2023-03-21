@@ -1,14 +1,14 @@
 if ! [ -e beings ]; then
 	echo "No executable found. Preparing to build..."; sleep .6
 	echo -n "Checking gcc..."; sleep .4
-	if ! [ -e /usr/bin/gcc ]; then
+	if [ -z "$(which gcc)" ]; then
 		echo -e "failed!\n\nMake sure gcc is installed.\n"
 		exit 1
 	fi
 	echo "success!"; sleep .4
 
 	echo -n "Checking curses..."; sleep .4
-	if ! [ -e /usr/include/curses.h ]; then
+	if [[ ! -n $(find /usr/* -name 'curses.h') ]]; then
 		echo -e "failed!\n\ncurses.h not found. Make sure curses (most often ncurses) is installed.\n"
 		exit 1
 	fi
